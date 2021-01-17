@@ -4,7 +4,6 @@ ThisBuild / version := "0.1"
 ThisBuild / scalaVersion := "2.12.12"
 ThisBuild / autoCompilerPlugins := true
 ThisBuild / scalacOptions ++= Seq(
-  "-Xfatal-warnings", // for wartremover warts
   "-explaintypes", // Explain type errors in more detail.
   "-language:higherKinds" // Allow higher-kinded types
 )
@@ -15,8 +14,8 @@ Global / onChangedBuildSource := ReloadOnSourceChanges
 lazy val root = (project in file("."))
   .settings(
     name := "Trace4Cats101",
-    mainClass in (Compile, run) := Some("Main"),
-    mainClass in (Compile, packageBin) := Some("Main"),
+    mainClass in (Compile, run) := Some("SimpleExample"),
+    mainClass in (Compile, packageBin) := Some("SimpleExample"),
     libraryDependencies ++= Seq(
       "io.janstenpickle" %% "trace4cats-core" % "0.7.0",
       "io.janstenpickle" %% "trace4cats-inject" % "0.7.0",
@@ -30,6 +29,15 @@ lazy val root = (project in file("."))
       "io.janstenpickle" %% "trace4cats-avro-exporter" % "0.7.0",
       "io.janstenpickle" %% "trace4cats-jaeger-thrift-exporter" % "0.7.0",
       "io.janstenpickle" %% "trace4cats-log-exporter" % "0.7.0"
+    ),
+    libraryDependencies += compilerPlugin(
+      "org.typelevel" %% "kind-projector" % "0.11.3" cross CrossVersion.full
+    ),
+    libraryDependencies += compilerPlugin(
+      "com.olegpy" %% "better-monadic-for" % "0.3.1"
     )
 
   )
+
+addCommandAlias("fmt", "all root/scalafmtSbt root/scalafmtAll")
+addCommandAlias("fmtCheck", "all root/scalafmtSbtCheck root/scalafmtCheckAll")
