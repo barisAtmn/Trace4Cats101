@@ -25,11 +25,11 @@ lazy val root = (project in file("."))
       "io.janstenpickle" %% "trace4cats-http4s-client" % "0.7.0",
       "io.janstenpickle" %% "trace4cats-http4s-server" % "0.7.0",
       "io.janstenpickle" %% "trace4cats-sttp-client" % "0.7.0",
-      "io.janstenpickle" %% "trace4cats-natchez" % "0.7.0",
       "io.janstenpickle" %% "trace4cats-avro-exporter" % "0.7.0",
       "io.janstenpickle" %% "trace4cats-jaeger-thrift-exporter" % "0.7.0",
-      "io.janstenpickle" %% "trace4cats-log-exporter" % "0.7.0"
-    ),
+      "io.janstenpickle" %% "trace4cats-log-exporter" % "0.7.0",
+      "org.tpolecat"  %% "natchez-jaeger" % "0.0.18"
+        ),
     libraryDependencies += compilerPlugin(
       "org.typelevel" %% "kind-projector" % "0.11.3" cross CrossVersion.full
     ),
