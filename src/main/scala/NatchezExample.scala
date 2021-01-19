@@ -20,18 +20,15 @@ object NatchezExample extends IOApp {
 
 
   def getUser[F[_]: Sync: Trace] (userId: Int): F[User] = Trace[F].span("get user from database"){
-    // query database and get user
     Sync[F].delay(User(""))
   }
 
 
   def getUserNetwork[F[_]: Sync: Trace](user: User): F[UserNetwork] = Trace[F].span("get user network"){
-    // get user network data from another service
     Sync[F].delay(UserNetwork(""))
   }
 
   def getUserProfile[F[_]: Sync: Trace](user: User): F[UserProfile] = Trace[F].span("get user profile"){
-    // fetch user profile data from another service
     Sync[F].delay(UserProfile(""))
   }
 
@@ -55,7 +52,7 @@ object NatchezExample extends IOApp {
     import natchez.jaeger.Jaeger
     import io.jaegertracing.Configuration.SamplerConfiguration
     import io.jaegertracing.Configuration.ReporterConfiguration
-    Jaeger.entryPoint[F]("another-natchez-example") { c =>
+    Jaeger.entryPoint[F]("natchez-example") { c =>
       Sync[F].delay {
         c.withSampler(SamplerConfiguration.fromEnv)
           .withReporter(ReporterConfiguration.fromEnv)
